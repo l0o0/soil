@@ -1,0 +1,15 @@
+[project]
+name = "soil"
+version = "0.1.0"
+description = "Backend for my garden"
+authors = [
+    { name = "l0o0" },
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+production = [
+    "fastapi>=0.115.12",
+]
