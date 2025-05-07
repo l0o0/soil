@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+from app.middleware.logging import logging_middleware
 from app.routers import users, journals
-import os
 
 app = FastAPI()
+
+# Middlewares
+app.middleware("http")(logging_middleware)
 
 
 # Include the routers
