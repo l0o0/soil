@@ -19,6 +19,8 @@ dependencies = [
 ]
 
 [dependency-groups]
-production = [
-    "fastapi>=0.115.12",
+dev = [
+    "locust>=2.37.0",
+    "pytest>=8.3.5",
 ]
+
