@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
 from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator
+from typing import Any, AsyncIterator, Union
 
 from sqlalchemy.ext.asyncio import (
     AsyncConnection,
     AsyncSession,
+    AsyncEngine,
     async_sessionmaker,
     create_async_engine,
 )
 
 from app.core.config import settings
-from pydantic import PostgresDsn
 
 
 # Heavily inspired by https://praciano.com.br/fastapi-and-async-sqlalchemy-20-with-pytest-done-right.html
 
 
 class DatabaseSessionManager:
-    def __init__(self, postgres_uri: PostgresDsn, engine_kwargs: dict[str, Any] = None):
+    def __init__(self, postgres_uri: str, engine_kwargs: dict[str, Any] | None):
         db_url = str(postgres_uri)
         
         # 处理异步驱动（如果使用asyncpg）
         if "+asyncpg" not in db_url:
             db_url = db_url.replace("postgresql://", "postgresql+asyncpg://")
-        print(db_url)
-        self._engine = create_async_engine(db_url, **engine_kwargs)
+        engine_kwargs = engine_kwargs or {}
+        self._engine: Union[AsyncEngine, None] = create_async_engine(db_url, **engine_kwargs)
         self._sessionmaker = async_sessionmaker(autocommit=False, bind=self._engine)
 
     async def close(self):
