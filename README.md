@@ -20,6 +20,10 @@ alembic 数据库迁移工具目录
 Dockerfile
 README.md
 
+## 启动数据库
+
+docker start postgresql
+
 ## 运行项目
 
 以 docker 容器运行项目
@@ -29,6 +33,8 @@ README.md
 docker build -t soil .
 docker run -d -e ENV=prod -v $(pwd)/.env.prod:/app/.env.prod -v $(pwd)/logs:/app/logs -p 8080:8080 --name soil
 ```
+
+
 
 ## 压力测试
 
