@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     ENCRYPT_ALGORITHM: str
     DATABASE_URI: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    PLUGIN_IDS: str = ""
     ECHO_SQL: bool = False
 
     model_config = SettingsConfigDict(

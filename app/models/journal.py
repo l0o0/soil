@@ -1,7 +1,7 @@
-from sqlalchemy import Column, String, Numeric, SmallInteger, DateTime, func
+from sqlalchemy import Column, Integer, String, Numeric, SmallInteger, DateTime, func
 from app.models import Base
 
-class CNKI(Base):
+class CNKIM(Base):
     """
     CNKI论文数据表模型
     对应PostgreSQL中的public.cnki表
@@ -23,3 +23,16 @@ class CNKI(Base):
     
     def __repr__(self):
         return f"<CNKI(qkmc='{self.qkmc}',fhyz='{self.fhyz}', zhyz='{self.zhyz}', pyear={self.pyear})>"
+    
+
+class AbbreviationM(Base):
+    """
+    Journal abbreviation model
+    期刊缩写
+    """
+    __tablename__ = "abbreviation"
+
+    id = Column(Integer, primary_key=True)
+    fullname = Column(String(255), index=True)
+    abb_with_dot = Column(String(255))
+    abb_no_dot = Column(String(255))

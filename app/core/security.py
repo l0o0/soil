@@ -5,6 +5,8 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
 from app.core.config import settings
 
+id_list = settings.PLUGIN_IDS.split(",") if settings.PLUGIN_IDS else []
+
 def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
     to_encode = data.copy()
     if expires_delta:
@@ -29,7 +31,8 @@ async def verify_pluginID(pluginID: str = Header(...)):
     """
     验证请求头中的pluginID是否有效
     """
-    if pluginID != "thisisatest@zotero.org":
+    print(id_list, pluginID)
+    if pluginID not in id_list:
         raise HTTPException(
             status_code=401,
             detail="Invalid plugin ID",
